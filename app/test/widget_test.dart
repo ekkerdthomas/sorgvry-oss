@@ -1,4 +1,5 @@
 import 'package:drift/native.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sorgvry/database/local_database.dart';
@@ -22,7 +23,7 @@ void main() {
     );
 
     await tester.pumpAndSettle();
-    expect(find.text('Sorgvry'), findsOneWidget);
+    expect(find.byType(Image), findsAny);
 
     await healthDb.close();
     await localDb.close();

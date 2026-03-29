@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 
 abstract final class SorgvryColors {
   static const primary = Color(0xFF5BA8A0);
-  static const accent = Color(0xFFE07A5F);
-  static const leaf = Color(0xFF7FB069);
   static const cardDone = Color(0xFF27AE60);
   static const cardPending = Color(0xFF95A5A6);
   static const cardLate = Color(0xFFE67E22);
   static const cardAlert = Color(0xFFE07A5F);
   static const background = Color(0xFFF5F2EA);
   static const surface = Color(0xFFFFFFFF);
+}
+
+/// Shared app bar logo used across all screens.
+class SorgvryLogo extends StatelessWidget {
+  final double height;
+  const SorgvryLogo({super.key, this.height = 32});
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset('assets/logo_with_title.png', height: height);
+  }
 }
 
 abstract final class SorgvrySpacing {
@@ -38,6 +47,10 @@ final sorgvryTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(SorgvrySpacing.cardRadius),
     ),
+  ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: SorgvryColors.background,
+    surfaceTintColor: Colors.transparent,
   ),
   filledButtonTheme: FilledButtonThemeData(
     style: FilledButton.styleFrom(

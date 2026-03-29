@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../theme.dart';
+
 class CaregiverDashboardScreen extends ConsumerWidget {
   const CaregiverDashboardScreen({super.key});
 
@@ -10,7 +12,7 @@ class CaregiverDashboardScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(onPressed: () => context.go('/')),
-        title: Image.asset('assets/logo_with_title.png', height: 32),
+        title: const SorgvryLogo(),
       ),
       body: const Center(child: Text('Dashboard — placeholder')),
     );

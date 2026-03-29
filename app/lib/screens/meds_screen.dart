@@ -11,13 +11,6 @@ class MedsScreen extends ConsumerWidget {
 
   const MedsScreen({super.key, required this.session});
 
-  String get _title => switch (session) {
-    'morning' => 'Môre Medisyne',
-    'night' => 'Aand Medisyne',
-    'b12' => 'B12 Inspuiting',
-    _ => 'Medisyne',
-  };
-
   List<String> get _medNames => switch (session) {
     'morning' => ['Zetomax', 'Lansoloc', 'Clopiwin'],
     'night' => ['Aand medisyne'],
@@ -37,7 +30,7 @@ class MedsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(onPressed: () => context.go('/')),
-        title: Image.asset('assets/logo_with_title.png', height: 32),
+        title: const SorgvryLogo(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(SorgvrySpacing.cardPadding),

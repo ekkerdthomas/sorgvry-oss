@@ -102,7 +102,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         title: GestureDetector(
           onTap: _onTitleTap,
-          child: Image.asset('assets/logo_with_title.png', height: 36),
+          child: const SorgvryLogo(height: 36),
         ),
       ),
       body: Padding(
@@ -110,10 +110,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Image.asset('assets/logo_with_title.png', height: 48),
-            ),
-            const SizedBox(height: 12),
             Text(greeting, style: Theme.of(context).textTheme.headlineLarge),
             const SizedBox(height: 16),
             Expanded(
