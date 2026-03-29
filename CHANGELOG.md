@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.5.0] - 2026-03-29
+
+### backend
+#### Added
+- Implement /summary endpoint with daily health data and B12 due calculation (eb45a44)
+
 ## [v0.4.0] - 2026-03-29
 
 ### app
