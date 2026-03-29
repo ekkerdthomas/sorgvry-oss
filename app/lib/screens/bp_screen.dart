@@ -113,27 +113,33 @@ class _BpScreenState extends ConsumerState<BpScreen> {
             padding: const EdgeInsets.all(SorgvrySpacing.cardPadding),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Icon(
-                  Icons.check_circle,
-                  size: 64,
-                  color: SorgvryColors.cardDone,
+                Center(
+                  child: Icon(
+                    Icons.check_circle,
+                    size: 64,
+                    color: SorgvryColors.cardDone,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   '${existingReading.systolic}/${existingReading.diastolic}',
                   style: Theme.of(context).textTheme.headlineLarge,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'MAP: ${existingReading.meanArterialPressure?.round() ?? '—'}',
                   style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
                 if (!_saved)
                   Text(
                     'Reeds vandag gemeet',
                     style: Theme.of(context).textTheme.bodyLarge,
+                    textAlign: TextAlign.center,
                   ),
                 if (_saved) ...[
                   const PhotoCaptureButton(module: 'bp'),
