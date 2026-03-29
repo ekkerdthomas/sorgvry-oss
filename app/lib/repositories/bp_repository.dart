@@ -4,7 +4,6 @@ import 'package:sorgvry_shared/database/database.dart';
 
 import '../database/local_database.dart';
 import '../models/bp_state.dart';
-import '../utils/device_id.dart';
 
 export '../models/bp_state.dart';
 
@@ -16,7 +15,7 @@ class BpRepository {
   BpRepository({
     required this.db,
     required this.localDb,
-    this.deviceId = devDeviceId,
+    required this.deviceId,
   });
 
   Future<BpState> todayStatus() async {

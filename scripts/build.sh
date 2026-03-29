@@ -14,7 +14,7 @@ build_web() {
 
 build_apk() {
   echo "==> Building APK (arm64 only)..."
-  export JAVA_HOME="${JAVA_HOME:-/usr/lib/jvm/java-17-openjdk-amd64}"
+  export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
   export ANDROID_HOME="${ANDROID_HOME:-$HOME/android-sdk}"
   cd app
   flutter build apk \

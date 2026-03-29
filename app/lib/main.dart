@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sorgvry_shared/database/database.dart';
@@ -15,28 +14,28 @@ import 'utils/device_id.dart';
 
 SyncService? _syncService;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final healthDb = SorgvryDatabase(openDatabase('sorgvry'));
   final localDb = AppLocalDatabase(openDatabase('sorgvry_local'));
 
-  // Start background sync (skip on web — no backend in dev preview)
-  if (!kIsWeb) {
-    _syncService?.stop();
-    _syncService = SyncService(
-      healthDb: healthDb,
-      localDb: localDb,
-      baseUrl: backendUrl,
-      deviceId: devDeviceId,
-    )..start();
-  }
+  final deviceId = await getOrCreateDeviceId(localDb);
+
+  _syncService?.stop();
+  _syncService = SyncService(
+    healthDb: healthDb,
+    localDb: localDb,
+    baseUrl: backendUrl,
+    deviceId: deviceId,
+  )..start();
 
   runApp(
     ProviderScope(
       overrides: [
         healthDbProvider.overrideWithValue(healthDb),
         localDbProvider.overrideWithValue(localDb),
+        deviceIdProvider.overrideWithValue(deviceId),
       ],
       child: const SorgvryApp(),
     ),

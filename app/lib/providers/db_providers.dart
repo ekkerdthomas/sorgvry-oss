@@ -10,3 +10,7 @@ final healthDbProvider = Provider<SorgvryDatabase>(
 final localDbProvider = Provider<AppLocalDatabase>(
   (ref) => throw UnimplementedError('Override localDbProvider in main.dart'),
 );
+
+final deviceIdProvider = Provider<String>(
+  (ref) => throw UnimplementedError('Override deviceIdProvider in main.dart'),
+);

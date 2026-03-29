@@ -9,6 +9,7 @@ final walkRepoProvider = Provider<WalkRepository>((ref) {
   return WalkRepository(
     db: ref.watch(healthDbProvider),
     localDb: ref.watch(localDbProvider),
+    deviceId: ref.watch(deviceIdProvider),
   );
 });
 

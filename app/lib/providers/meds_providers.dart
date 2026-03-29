@@ -9,6 +9,7 @@ final medsRepoProvider = Provider<MedsRepository>((ref) {
   return MedsRepository(
     db: ref.watch(healthDbProvider),
     localDb: ref.watch(localDbProvider),
+    deviceId: ref.watch(deviceIdProvider),
   );
 });
 

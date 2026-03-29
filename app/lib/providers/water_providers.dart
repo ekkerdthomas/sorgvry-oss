@@ -9,6 +9,7 @@ final waterRepoProvider = Provider<WaterRepository>((ref) {
   return WaterRepository(
     db: ref.watch(healthDbProvider),
     localDb: ref.watch(localDbProvider),
+    deviceId: ref.watch(deviceIdProvider),
   );
 });
 

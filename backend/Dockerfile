@@ -16,7 +16,7 @@ RUN dart compile exe build/bin/server.dart -o build/bin/server
 
 # Run stage
 FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y libsqlite3-0 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libsqlite3-dev && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/backend/build/bin/server /app/server
 EXPOSE 8080
 ENV PORT=8080

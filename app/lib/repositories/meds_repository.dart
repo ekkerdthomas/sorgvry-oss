@@ -4,7 +4,6 @@ import 'package:sorgvry_shared/database/database.dart';
 
 import '../database/local_database.dart';
 import '../models/meds_state.dart';
-import '../utils/device_id.dart';
 
 export '../models/meds_state.dart';
 
@@ -16,7 +15,7 @@ class MedsRepository {
   MedsRepository({
     required this.db,
     required this.localDb,
-    this.deviceId = devDeviceId,
+    required this.deviceId,
   });
 
   Future<MedsState> todayStatus() async {

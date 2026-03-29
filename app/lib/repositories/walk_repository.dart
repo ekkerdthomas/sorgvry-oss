@@ -4,7 +4,6 @@ import 'package:sorgvry_shared/database/database.dart';
 
 import '../database/local_database.dart';
 import '../models/walk_state.dart';
-import '../utils/device_id.dart';
 
 export '../models/walk_state.dart';
 
@@ -16,7 +15,7 @@ class WalkRepository {
   WalkRepository({
     required this.db,
     required this.localDb,
-    this.deviceId = devDeviceId,
+    required this.deviceId,
   });
 
   Future<WalkState> todayStatus() async {

@@ -9,6 +9,7 @@ final bpRepoProvider = Provider<BpRepository>((ref) {
   return BpRepository(
     db: ref.watch(healthDbProvider),
     localDb: ref.watch(localDbProvider),
+    deviceId: ref.watch(deviceIdProvider),
   );
 });
 
