@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.6.0] - 2026-03-29
+
+### backend
+#### Added
+- Make summary endpoint device-agnostic, aggregating across all devices (76748c5)
+
 ## [v0.5.1] - 2026-03-29
 
 ### backend
