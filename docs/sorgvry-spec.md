@@ -323,7 +323,7 @@ Body:
   4 large cards (GridView 2x2, each ~40% screen height):
 
   ┌──────────────┬──────────────┐
-  │  Môre        │  Bloeddruk   │
+  │  Oggend      │  Bloeddruk   │
   │  Medisyne    │              │
   │              │              │
   │  [icon]      │  [icon]      │
@@ -354,7 +354,7 @@ Hidden gesture: tap app title 5× → PIN prompt → caregiver mode.
 ### 5.4 Meds Screen
 
 ```
-Title: "Môre Medisyne" / "Aand Medisyne" / "B12 Inspuiting"
+Title: "Oggend Medisyne" / "Aand Medisyne" / "B12 Inspuiting"
 
 Body (morning example):
   Visual pill icons for each med (not interactive, just decorative)
@@ -485,7 +485,7 @@ Use `flutter_local_notifications` + `android_alarm_manager_plus`.
 18:00  → WaterReminder         "Onthou om water te drink"  (if glasses < 6)
 20:00  → NightMedsReminder     "Tyd vir jou aand pille"
 
-// B12 injection days (calculated from start date: 25 Mar 2026, every 14 days)
+// B12 injection days (calculated from start date: 27 Mar 2026, every 14 days)
 07:00  → B12Reminder           "Jou B12 inspuiting is vandag"
 ```
 
@@ -558,12 +558,12 @@ button:         12px
 
 ## 10. B12 Injection Schedule
 
-Start date: **25 March 2026**
+Start date: **27 March 2026**
 Frequency: every **14 days**
 Total: **40 injections** (~20 months)
 
 ```dart
-DateTime b12StartDate = DateTime(2026, 3, 25);
+DateTime b12StartDate = DateTime(2026, 3, 27);
 
 bool isB12Day(DateTime date) {
   final diff = date.difference(b12StartDate).inDays;

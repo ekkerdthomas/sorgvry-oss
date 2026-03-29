@@ -119,7 +119,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 crossAxisSpacing: SorgvrySpacing.gridGap,
                 children: [
                   _HomeCard(
-                    title: 'Môre Medisyne',
+                    title: 'Oggend Medisyne',
                     icon: Icons.medication,
                     color: medsColor,
                     subtitle: medsSubtitle,
