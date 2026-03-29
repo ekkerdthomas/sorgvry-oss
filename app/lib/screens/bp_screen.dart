@@ -28,18 +28,19 @@ class _BpScreenState extends ConsumerState<BpScreen> {
     final s = _systolic;
     final d = _diastolic;
     if (s == null || d == null) return null;
+    if (_diastolicDigits.length < 2) return null;
     return (s + 2 * d) / 3.0;
   }
 
   Color _mapColor(double map) {
     if (map > 110) return SorgvryColors.cardAlert;
-    if (map >= 90) return SorgvryColors.cardLate;
+    if (map < 80) return SorgvryColors.cardLate;
     return SorgvryColors.cardDone;
   }
 
   String _mapMessage(double map) {
     if (map > 110) return 'Sê vir jou versorger';
-    if (map >= 90) return 'Hou dop';
+    if (map < 80) return 'Hou dop';
     return 'Goed so!';
   }
 
