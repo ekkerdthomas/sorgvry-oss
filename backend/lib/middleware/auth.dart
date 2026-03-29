@@ -10,14 +10,15 @@ class AuthenticatedDeviceId {
 }
 
 final _jwtSecret = SecretKey(
-  Platform.environment['JWT_SECRET'] ?? 'dev-secret-change-me',
+  Platform.environment['JWT_SECRET'] ??
+      (throw StateError('JWT_SECRET environment variable is required')),
 );
 
 Middleware authMiddleware() {
   return (handler) {
     return (context) async {
       final path = context.request.uri.path;
-      if (path == '/auth/register' || path == '/') {
+      if (path == '/auth/register' || path == '/' || path == '/health') {
         return handler(context);
       }
 
