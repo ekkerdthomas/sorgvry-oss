@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.5.1] - 2026-03-29
+
+### backend
+#### Fixed
+- Use UTC dates in summary endpoint to match stored data on SAST Pi (2fd1069)
+- Add Docker bridge binding so Uptime Kuma can reach the container (dbe4cbd)
+
 ## [v0.5.0] - 2026-03-29
 
 ### backend
