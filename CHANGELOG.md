@@ -1,0 +1,30 @@
+# Changelog
+
+## [v0.2.0] - 2026-03-29
+
+### app
+#### Added
+- Scaffold mono-repo with shared schema, flutter app, and dart frog backend (643a6d2)
+- Implement 4 health modules with real DB queries and full UI (3533287)
+- Implement sync service with auto-registration and queue flush (bd58e0e)
+- Add hosting infrastructure, web deploy, and lean APK build (23aceb9)
+- Redesign meds screen with dosage details, session titles, and B12 schedule (d1a3f25)
+
+#### Fixed
+- Enable web dev preview and replace stub throws with default returns (5c5dc7d)
+- Replace hardcoded Colors.blue with theme colors and add missing back button (f37ff7b)
+
+#### Changed
+- Extract SorgvryLogo widget and remove dead branding code (3ddcc19)
+
+### backend
+#### Added
+- Scaffold mono-repo with shared schema, flutter app, and dart frog backend (643a6d2)
+- Add hosting infrastructure, web deploy, and lean APK build (23aceb9)
+
+#### Fixed
+- Enable web dev preview and replace stub throws with default returns (5c5dc7d)
+
+### sorgvry_shared
+#### Added
+- Scaffold mono-repo with shared schema, flutter app, and dart frog backend (643a6d2)
