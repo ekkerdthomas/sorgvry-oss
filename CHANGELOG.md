@@ -1,5 +1,27 @@
 # Changelog
 
+## [v0.3.0] - 2026-03-29
+
+### app
+#### Added
+- Photo capture and MinIO media sync for all health modules (9ceea02)
+- Enable sync for PWA and replace hardcoded device ID with auto-generated UUID (b048a70)
+
+#### Fixed
+- Delay MAP display until 2 diastolic digits and correct thresholds (8eab3be)
+
+#### Changed
+- Reduce vertical card padding on home screen to prevent text clipping (0e9f442)
+
+### backend
+#### Added
+- Photo capture and MinIO media sync with upload/proxy endpoints (9ceea02)
+- Enable sync for PWA and replace hardcoded device ID with auto-generated UUID (b048a70)
+
+### sorgvry_shared
+#### Added
+- MediaAttachments Drift table (schema v2) and MediaUploadFields contract (9ceea02)
+
 ## [v0.2.0] - 2026-03-29
 
 ### app
