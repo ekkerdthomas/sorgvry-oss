@@ -19,6 +19,7 @@ class _BpScreenState extends ConsumerState<BpScreen> {
   String _diastolicDigits = '';
   bool _editingSystolic = true;
   bool _saved = false;
+  bool _retaking = false;
 
   int? get _systolic =>
       _systolicDigits.isNotEmpty ? int.tryParse(_systolicDigits) : null;
@@ -94,7 +95,10 @@ class _BpScreenState extends ConsumerState<BpScreen> {
     if (s < 50 || s > 300 || d < 30 || d > 200) return;
 
     await ref.read(bpNotifierProvider.notifier).save(systolic: s, diastolic: d);
-    setState(() => _saved = true);
+    setState(() {
+      _saved = true;
+      _retaking = false;
+    });
   }
 
   @override
@@ -102,56 +106,99 @@ class _BpScreenState extends ConsumerState<BpScreen> {
     final bpAsync = ref.watch(bpNotifierProvider);
     final existingReading = bpAsync.value;
 
-    if (existingReading != null && existingReading.hasReading) {
+    if (existingReading != null && existingReading.hasReading && !_retaking) {
+      final map = existingReading.meanArterialPressure ?? 0;
+      final mapRounded = map.round();
+      final statusColor = _mapColor(map);
+      final statusMessage = _mapMessage(map);
+
       return Scaffold(
         appBar: AppBar(
           leading: BackButton(onPressed: () => context.go('/')),
           title: const SorgvryLogo(),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(SorgvrySpacing.cardPadding),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Center(
-                  child: Icon(
-                    Icons.check_circle,
-                    size: 64,
-                    color: SorgvryColors.cardDone,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '${existingReading.systolic}/${existingReading.diastolic}',
-                  style: Theme.of(context).textTheme.headlineLarge,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'MAP: ${existingReading.meanArterialPressure?.round() ?? '—'}',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                if (!_saved)
+        body: Column(
+          children: [
+            // Colour-coded MAP status block
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              color: statusColor,
+              child: Column(
+                children: [
                   Text(
-                    'Reeds vandag gemeet',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    'MAP $mapRounded',
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: Colors.white,
+                      fontSize: 48,
+                    ),
                     textAlign: TextAlign.center,
                   ),
-                if (_saved) ...[
-                  const PhotoCaptureButton(module: 'bp'),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: () => context.go('/'),
-                    child: const Text('KLAAR'),
+                  const SizedBox(height: 8),
+                  Text(
+                    statusMessage,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                    textAlign: TextAlign.center,
                   ),
                 ],
-              ],
+              ),
             ),
-          ),
+            // Reading + actions
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(SorgvrySpacing.cardPadding),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      '${existingReading.systolic} / ${existingReading.diastolic}',
+                      style: const TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Sistolies · Diastolies',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Colors.grey.shade600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Spacer(),
+                    if (_saved) const PhotoCaptureButton(module: 'bp'),
+                    if (_saved) const SizedBox(height: 16),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(
+                          SorgvrySpacing.buttonHeight,
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _systolicDigits = '';
+                          _diastolicDigits = '';
+                          _editingSystolic = true;
+                          _saved = false;
+                          _retaking = true;
+                        });
+                      },
+                      child: const Text('NUWE METING'),
+                    ),
+                    const SizedBox(height: 12),
+                    FilledButton(
+                      onPressed: () => context.go('/'),
+                      child: const Text('KLAAR'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }
