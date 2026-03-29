@@ -46,9 +46,13 @@ class WaterScreen extends ConsumerWidget {
                         height: 64,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: filled ? Colors.blue : Colors.transparent,
+                          color: filled
+                              ? SorgvryColors.primary
+                              : Colors.transparent,
                           border: Border.all(
-                            color: filled ? Colors.blue : Colors.grey.shade400,
+                            color: filled
+                                ? SorgvryColors.primary
+                                : Colors.grey.shade400,
                             width: 3,
                           ),
                         ),
@@ -74,7 +78,9 @@ class WaterScreen extends ConsumerWidget {
                     minHeight: 12,
                     borderRadius: BorderRadius.circular(6),
                     backgroundColor: Colors.grey.shade300,
-                    valueColor: const AlwaysStoppedAnimation(Colors.blue),
+                    valueColor: const AlwaysStoppedAnimation(
+                      SorgvryColors.primary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),

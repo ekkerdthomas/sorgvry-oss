@@ -17,7 +17,11 @@ class SorgvryLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset('assets/logo_with_title.png', height: height);
+    return Image.asset(
+      'assets/logo_with_title.png',
+      height: height,
+      semanticLabel: 'Sorgvry',
+    );
   }
 }
 

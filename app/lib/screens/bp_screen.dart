@@ -140,7 +140,10 @@ class _BpScreenState extends ConsumerState<BpScreen> {
     final map = _map;
 
     return Scaffold(
-      appBar: AppBar(title: const SorgvryLogo()),
+      appBar: AppBar(
+        leading: BackButton(onPressed: () => context.go('/')),
+        title: const SorgvryLogo(),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(SorgvrySpacing.cardPadding),
         child: Column(
@@ -238,7 +241,9 @@ class _FieldDisplay extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: active ? Colors.blue.shade50 : Colors.grey.shade100,
+        color: active
+            ? SorgvryColors.primary.withValues(alpha: 0.1)
+            : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(SorgvrySpacing.buttonRadius),
         border: Border.all(
           color: active ? SorgvryColors.primary : Colors.grey.shade300,
