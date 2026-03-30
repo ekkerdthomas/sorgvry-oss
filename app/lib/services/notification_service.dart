@@ -117,6 +117,8 @@ class NotificationService {
         _nextInstance(s.hour, s.minute, sast),
         details,
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
         payload: s.payload,
       );
@@ -132,6 +134,8 @@ class NotificationService {
         _nextInstance(7, 0, sast),
         details,
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
         payload: '/medisyne?session=b12',
       );
     }
@@ -146,7 +150,8 @@ class NotificationService {
   /// Returns the next occurrence of [hour]:[minute] in [location].
   tz.TZDateTime _nextInstance(int hour, int minute, tz.Location location) {
     final now = tz.TZDateTime.now(location);
-    var scheduled = tz.TZDateTime(location, now.year, now.month, now.day, hour, minute);
+    var scheduled =
+        tz.TZDateTime(location, now.year, now.month, now.day, hour, minute);
     if (scheduled.isBefore(now)) {
       scheduled = scheduled.add(const Duration(days: 1));
     }
