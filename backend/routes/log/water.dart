@@ -16,9 +16,16 @@ Future<Response> onRequest(RequestContext context) async {
     final body = await context.request.json() as Map<String, dynamic>;
     final request = WaterLogRequest.fromJson(body);
 
+    final parsedDate = DateTime.parse(request.date);
+    final normalisedDate = DateTime.utc(
+      parsedDate.year,
+      parsedDate.month,
+      parsedDate.day,
+    );
+
     final entry = WaterLogsCompanion(
       deviceId: Value(deviceId),
-      date: Value(DateTime.parse(request.date)),
+      date: Value(normalisedDate),
       glasses: Value(request.glasses),
       loggedAt: Value(DateTime.parse(request.loggedAt)),
       synced: const Value(true),

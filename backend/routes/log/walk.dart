@@ -16,9 +16,16 @@ Future<Response> onRequest(RequestContext context) async {
     final body = await context.request.json() as Map<String, dynamic>;
     final request = WalkLogRequest.fromJson(body);
 
+    final parsedDate = DateTime.parse(request.date);
+    final normalisedDate = DateTime.utc(
+      parsedDate.year,
+      parsedDate.month,
+      parsedDate.day,
+    );
+
     final entry = WalkLogsCompanion(
       deviceId: Value(deviceId),
-      date: Value(DateTime.parse(request.date)),
+      date: Value(normalisedDate),
       walked: Value(request.walked),
       durationMin: Value(request.durationMin),
       loggedAt: Value(DateTime.parse(request.loggedAt)),

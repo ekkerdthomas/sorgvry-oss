@@ -16,9 +16,16 @@ Future<Response> onRequest(RequestContext context) async {
     final body = await context.request.json() as Map<String, dynamic>;
     final request = MedLogRequest.fromJson(body);
 
+    final parsedDate = DateTime.parse(request.date);
+    final normalisedDate = DateTime.utc(
+      parsedDate.year,
+      parsedDate.month,
+      parsedDate.day,
+    );
+
     final entry = MedLogsCompanion(
       deviceId: Value(deviceId),
-      date: Value(DateTime.parse(request.date)),
+      date: Value(normalisedDate),
       session: Value(request.session),
       taken: Value(request.taken),
       loggedAt: Value(DateTime.parse(request.loggedAt)),

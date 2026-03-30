@@ -233,7 +233,7 @@ void main() {
               date: Value(date),
               session: const Value('morning'),
               taken: const Value(true),
-              loggedAt: Value(DateTime.utc(2026, 4, 1, 7, 0)),
+              loggedAt: Value(DateTime.utc(2026, 4, 1, 7)),
               synced: const Value(true),
             ),
           );
