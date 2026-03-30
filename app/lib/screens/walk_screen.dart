@@ -61,7 +61,7 @@ class _WalkScreenState extends ConsumerState<WalkScreen> {
                           : 'Gestap vandag',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    if (_saved) ...[
+                    if (_saved || walk.walked) ...[
                       const SizedBox(height: 24),
                       const PhotoCaptureButton(module: 'walk'),
                       const SizedBox(height: 16),
