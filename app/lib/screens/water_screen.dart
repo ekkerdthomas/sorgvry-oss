@@ -43,8 +43,8 @@ class WaterScreen extends ConsumerWidget {
                         }
                       },
                       child: Container(
-                        width: 64,
-                        height: 64,
+                        width: 72,
+                        height: 72,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: filled
