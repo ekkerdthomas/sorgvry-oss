@@ -16,9 +16,16 @@ Future<Response> onRequest(RequestContext context) async {
     final body = await context.request.json() as Map<String, dynamic>;
     final request = BpReadingRequest.fromJson(body);
 
+    final parsedDate = DateTime.parse(request.date);
+    final normalisedDate = DateTime.utc(
+      parsedDate.year,
+      parsedDate.month,
+      parsedDate.day,
+    );
+
     final entry = BpReadingsCompanion(
       deviceId: Value(deviceId),
-      date: Value(DateTime.parse(request.date)),
+      date: Value(normalisedDate),
       systolic: Value(request.systolic),
       diastolic: Value(request.diastolic),
       meanArterialPressure: Value(request.map),
