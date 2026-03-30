@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
+import '../config.dart';
 import '../providers/bp_providers.dart';
+import '../providers/db_providers.dart';
 import '../providers/meds_providers.dart';
 import '../providers/walk_providers.dart';
 import '../providers/water_providers.dart';
@@ -19,6 +22,75 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _titleTapCount = 0;
   DateTime _lastTap = DateTime(2000);
+  int _versionTapCount = 0;
+  DateTime _lastVersionTap = DateTime(2000);
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    PackageInfo.fromPlatform().then((info) {
+      if (mounted) {
+        setState(() => _version = '${info.version}+${info.buildNumber}');
+      }
+    });
+  }
+
+  void _onVersionTap() {
+    final now = DateTime.now();
+    if (now.difference(_lastVersionTap).inMilliseconds > 1500) {
+      _versionTapCount = 0;
+    }
+    _lastVersionTap = now;
+    _versionTapCount++;
+    if (_versionTapCount >= 5) {
+      _versionTapCount = 0;
+      _showDebugDialog();
+    }
+  }
+
+  void _showDebugDialog() {
+    String deviceId;
+    try {
+      deviceId = ref.read(deviceIdProvider);
+    } catch (_) {
+      deviceId = 'onbekend';
+    }
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Debug Info'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _debugRow('Weergawe', _version),
+            _debugRow('Backend', backendUrl),
+            _debugRow('Toestel-ID', deviceId),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('SLUIT'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _debugRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('$label: ', style: const TextStyle(fontWeight: FontWeight.bold)),
+          Expanded(child: Text(value, style: const TextStyle(fontSize: 14))),
+        ],
+      ),
+    );
+  }
 
   void _onTitleTap() {
     final now = DateTime.now();
@@ -106,6 +178,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           onTap: _onTitleTap,
           child: const SorgvryLogo(height: 36),
         ),
+        actions: [
+          if (_version.isNotEmpty)
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: _onVersionTap,
+              child: SizedBox(
+                height: 48,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16, left: 8),
+                  child: Center(
+                    child: Text(
+                      'v${_version.split('+').first}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(SorgvrySpacing.gridGap),
