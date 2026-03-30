@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../config.dart';
@@ -114,12 +117,68 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         actions: [
           TextButton(
+            onPressed: () => _runNetworkTest(context),
+            child: const Text('TOETS NETWERK'),
+          ),
+          TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: const Text('SLUIT'),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _runNetworkTest(BuildContext dialogContext) async {
+    final results = <String>[];
+    final host = Uri.parse(backendUrl).host;
+
+    // Test 1: DNS lookup
+    try {
+      final addrs = await InternetAddress.lookup(host);
+      results.add('DNS: OK (${addrs.map((a) => a.address).join(', ')})');
+    } catch (e) {
+      results.add('DNS: FAIL ($e)');
+    }
+
+    // Test 2: raw socket connection
+    try {
+      final socket = await Socket.connect(
+        host,
+        443,
+        timeout: const Duration(seconds: 5),
+      );
+      socket.destroy();
+      results.add('TCP:443: OK');
+    } catch (e) {
+      results.add('TCP:443: FAIL ($e)');
+    }
+
+    // Test 3: HTTP GET to health endpoint
+    try {
+      final resp = await http
+          .get(Uri.parse('$backendUrl/health'))
+          .timeout(const Duration(seconds: 10));
+      results.add('HTTP: ${resp.statusCode} ${resp.body}');
+    } catch (e) {
+      results.add('HTTP: FAIL ($e)');
+    }
+
+    if (dialogContext.mounted) {
+      showDialog(
+        context: dialogContext,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Netwerk Toets'),
+          content: Text(results.join('\n\n')),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Widget _debugRow(String label, String value) {
