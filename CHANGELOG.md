@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.7.1] - 2026-03-30
+
+### app
+#### Fixed
+- Harden notification system for Android 13+ and reboot survival (2dceb36)
+- Correct zonedSchedule params and format notification_service (7520f7b)
+
 ## [v0.7.0] - 2026-03-30
 
 ### app
