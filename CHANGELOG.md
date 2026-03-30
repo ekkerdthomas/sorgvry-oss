@@ -1,5 +1,23 @@
 # Changelog
 
+## [v0.8.1] - 2026-03-30
+
+### app
+#### Fixed
+- Use Cronet HTTP client for Android-native DNS resolution (703ddbd)
+- Add INTERNET permission for release APK (8c1ebd3)
+- Add network diagnostic test to debug dialog (e0b43f4)
+
+### backend
+#### Fixed
+- Make patientName optional in RegisterRequest to prevent crashes (a3ee486)
+
+### deploy
+#### Fixed
+- Use --checksum for APK rsync to ensure updates upload (a3ee486)
+- Purge Cloudflare cache after APK deploy (a3ee486)
+- Add no-cache header to /download/ nginx location
+
 ## [v0.8.0] - 2026-03-30
 
 ### app
