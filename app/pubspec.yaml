@@ -1,0 +1,67 @@
+name: sorgvry
+description: Sorgvry — Afrikaans health companion app.
+publish_to: none
+version: 0.8.1+10
+
+resolution: workspace
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sorgvry_shared:
+    version: any
+  flutter_riverpod: ^3.0.3
+  go_router: ^16.2.0
+  drift: ^2.31.0
+  drift_flutter: ^0.2.0
+  sqlite3_flutter_libs: ^0.5.40
+  http: ^1.3.0
+  intl: ^0.20.2
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  path: ^1.9.0
+  flutter_local_notifications: ^18.0.0
+  timezone: ^0.10.0
+  package_info_plus: ^9.0.0
+  cronet_http: ^1.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.15
+  drift_dev: ^2.31.0
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.6
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/logo_icon.png"
+  adaptive_icon_background: "#F5F2EA"
+  adaptive_icon_foreground: "assets/logo_icon.png"
+  web:
+    generate: true
+    image_path: "assets/logo_icon.png"
+    background_color: "#F5F2EA"
+    theme_color: "#5BA8A0"
+
+flutter_native_splash:
+  color: "#F5F2EA"
+  image: "assets/logo_icon.png"
+  android: true
+  ios: false
+  web: true
+  android_12:
+    color: "#F5F2EA"
+    icon_background_color: "#F5F2EA"
+    image: "assets/logo_icon.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo_icon.png
+    - assets/logo_with_title.png
